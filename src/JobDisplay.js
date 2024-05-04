@@ -4,14 +4,18 @@ import { useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 
 const JobListings = () => {
+  // local states
   const [jobs, setJobs] = useState([]);
   const [allJobs, setAllJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(0);
+
+  // refs
   const observer = useRef(null);
   const lastElementRef = useRef();
 
+  // getting the values of filters from state
   const roleFilter = useSelector((state) => state.roleFilter);
   const experienceFilter = useSelector((state) => state.experienceFilter);
   const companyNameFilter = useSelector((state) => state.companyNameFilter);
@@ -21,6 +25,7 @@ const JobListings = () => {
   const locationFilter = useSelector((state) => state.locationFilter);
   const remoteFilter = useSelector((state) => state.remoteFilter);
 
+  // filtering all the jobs accordingly
   useEffect(() => {
     const filteredJobs = allJobs.filter((job) => {
       const roleMatches =
@@ -65,6 +70,7 @@ const JobListings = () => {
     allJobs,
   ]);
 
+  // fetch jobs
   useEffect(() => {
     setLoading(true);
     const myHeaders = new Headers();
@@ -95,6 +101,7 @@ const JobListings = () => {
       });
   }, [offset]);
 
+  // observe last job card for scrolling infinitely
   useEffect(() => {
     if (jobs.length) {
       observer.current.unobserve(lastElementRef.current);
@@ -104,6 +111,7 @@ const JobListings = () => {
     }
   }, [jobs]);
 
+  // init intersection observer for infinite scrolling
   useEffect(() => {
     observer.current = new IntersectionObserver(
       (entries) => {

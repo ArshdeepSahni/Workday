@@ -12,18 +12,65 @@ const JobListings = () => {
   const observer = useRef(null);
   const lastElementRef = useRef();
 
-  const filters = useSelector((state) => ({
-    roleFilter: state.roleFilter,
-    experienceFilter: state.experienceFilter,
-    companyNameFilter: state.companyNameFilter,
-    minimumBasePayFilter: state.minimumBasePayFilter,
-  }));
+  const roleFilter = useSelector((state) => state.roleFilter);
+  const experienceFilter = useSelector((state) => state.experienceFilter);
+  const companyNameFilter = useSelector((state) => state.companyNameFilter);
+  const minimumBasePayFilter = useSelector(
+    (state) => state.minimumBasePayFilter
+  );
+  const locationFilter = useSelector((state) => state.locationFilter);
+  const remoteFilter = useSelector((state) => state.remoteFilter);
+
+  useEffect(() => {
+    console.log("remote", remoteFilter);
+    const filteredJobs = allJobs.filter((job) => {
+      const roleMatches =
+        roleFilter.length > 0 ? roleFilter.includes(job.jobRole) : true;
+      const experienceMatches = experienceFilter
+        ? job.minExp >= parseInt(experienceFilter, 10)
+        : true;
+      const companyMatches = companyNameFilter
+        ? job.companyName
+            .toLowerCase()
+            .includes(companyNameFilter.toLowerCase())
+        : true;
+      const basePayMatches = minimumBasePayFilter
+        ? job.minJdSalary >= parseInt(minimumBasePayFilter, 10)
+        : true;
+      const locationMatches = locationFilter
+        ? job.location.toLowerCase().includes(locationFilter.toLowerCase())
+        : true;
+      const remoteMatches =
+        remoteFilter === "remote"
+          ? job.location.toLowerCase() === "remote"
+          : remoteFilter === "inoffice"
+          ? job.location.toLowerCase() !== "remote"
+          : true;
+      return (
+        roleMatches &&
+        experienceMatches &&
+        companyMatches &&
+        basePayMatches &&
+        locationMatches &&
+        remoteMatches
+      );
+    });
+    setJobs(filteredJobs);
+  }, [
+    roleFilter,
+    experienceFilter,
+    minimumBasePayFilter,
+    companyNameFilter,
+    locationFilter,
+    remoteFilter,
+    allJobs,
+  ]);
 
   useEffect(() => {
     setLoading(true);
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({ limit: 50, offset: offset });
+    const raw = JSON.stringify({ limit: 100, offset: offset });
 
     const requestOptions = {
       method: "POST",
@@ -50,31 +97,16 @@ const JobListings = () => {
         console.error("Error fetching jobs:", error);
         setLoading(false);
       });
-  }, [offset, filters]);
+  }, [offset]);
 
   useEffect(() => {
-    const filteredJobs = allJobs.filter((job) => {
-      const roleMatches =
-        filters.roleFilter.length > 0
-          ? filters.roleFilter.includes(job.jobRole)
-          : true;
-      const experienceMatches = filters.experienceFilter
-        ? job.minExp >= parseInt(filters.experienceFilter, 10)
-        : true;
-      const companyMatches = filters.companyNameFilter
-        ? job.companyName
-            .toLowerCase()
-            .includes(filters.companyNameFilter.toLowerCase())
-        : true;
-      const basePayMatches = filters.minimumBasePayFilter
-        ? job.minJdSalary >= parseInt(filters.minimumBasePayFilter, 10)
-        : true;
-      return (
-        roleMatches && experienceMatches && companyMatches && basePayMatches
-      );
-    });
-    setJobs(filteredJobs);
-  }, [filters, allJobs]);
+    if (jobs.length) {
+      observer.current.unobserve(lastElementRef.current);
+      if (lastElementRef.current) {
+        observer.current.observe(lastElementRef.current);
+      }
+    }
+  }, [jobs]);
 
   useEffect(() => {
     observer.current = new IntersectionObserver(
@@ -103,7 +135,6 @@ const JobListings = () => {
           xs={12}
           sm={6}
           md={4}
-          lg={3}
           key={index}
           ref={index === jobs.length - 1 ? lastElementRef : null}
         >

@@ -7,7 +7,9 @@
   background-color: #fff;
   border-radius: 4px;
 }
-
+.location {
+  padding-left: 10px;
+}
 .filter {
   margin: 0 8px;
   position: relative;

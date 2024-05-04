@@ -4,6 +4,8 @@ import { RoleFilter } from "./RoleFilter";
 import { ExperienceFilter } from "./ExperienceFilter";
 import { MinimumBasePayFilter } from "./MinimumBasePayFilter";
 import { CompanyNameFilter } from "./CompanyFilter";
+import { LocationFilter } from "./LocationFilter";
+import { RemoteFilter } from "./RemoteFilter";
 
 const JobFilters = () => {
   return (
@@ -11,7 +13,9 @@ const JobFilters = () => {
       <RoleFilter />
       <ExperienceFilter />
       <MinimumBasePayFilter />
+      <RemoteFilter />
       <CompanyNameFilter />
+      <LocationFilter />
     </form>
   );
 };

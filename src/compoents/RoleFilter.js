@@ -18,7 +18,6 @@ export const RoleFilter = ({ onFilterChange }) => {
     const values = selectedOptions
       ? selectedOptions.map((option) => option.value)
       : [];
-    console.log("values", values);
     dispatch(setRoleFilter(values));
     if (onFilterChange) {
       onFilterChange(values);

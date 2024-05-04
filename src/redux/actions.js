@@ -22,14 +22,12 @@ export const setLocationFilter = (location) => ({
 });
 
 export const setCompanyNameFilter = (companyName) => {
-  console.log("Dispatching company filter:", companyName);
   return {
     type: SET_COMPANY_NAME_FILTER,
     payload: companyName,
   };
 };
 export const setRoleFilter = (role) => {
-  console.log("Dispatching role filter:", role);
   return {
     type: SET_ROLE_FILTER,
     payload: role,
@@ -37,7 +35,6 @@ export const setRoleFilter = (role) => {
 };
 
 export const setExperienceFilter = (experience) => {
-  console.log("Dispatching experience filter:", experience);
   return {
     type: SET_EXPERIENCE_FILTER,
     payload: experience,

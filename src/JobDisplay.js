@@ -22,7 +22,6 @@ const JobListings = () => {
   const remoteFilter = useSelector((state) => state.remoteFilter);
 
   useEffect(() => {
-    console.log("remote", remoteFilter);
     const filteredJobs = allJobs.filter((job) => {
       const roleMatches =
         roleFilter.length > 0 ? roleFilter.includes(job.jobRole) : true;
@@ -78,17 +77,13 @@ const JobListings = () => {
       body: raw,
     };
 
-    fetch(
-      "https://api.weekday.technology/adhoc/getSampleJdJSON",
-      requestOptions
-    )
+    fetch(process.env.REACT_APP_API_URL, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         const newData = data.jdList.map((job) => ({
           ...job,
           minExp: job.minExp ? parseInt(job.minExp, 10) : 2,
         }));
-        console.log(newData, "ndndnd");
         setAllJobs((prev) => [...prev, ...newData]);
         setJobs((prev) => [...prev, ...newData]);
         setHasMore(data.jdList.length === 100);

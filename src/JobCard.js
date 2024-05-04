@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import JobModal from "./compoents/modal/JobModal";
 import "./JobCard.css";
 
 export default function JobCard({ job }) {
-  const [expanded, setExpanded] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   let minSalary = job.minJdSalary;
@@ -28,13 +30,10 @@ export default function JobCard({ job }) {
         </div>
         <div className="header">
           <div className="logo">
-            <img
-              src="https://source.unsplash.com/random/?company,logo"
-              alt="logo"
-            />
+            <img src={job.logoUrl} alt="logo" />
           </div>
           <div className="job-info">
-            <span className="title">Company</span>
+            <span className="company-name">{job.companyName}</span>
             <span className="job-title">{job.jobRole}</span>
             <span className="job-location">{job.location}</span>
           </div>
@@ -46,9 +45,9 @@ export default function JobCard({ job }) {
         <div className="about-company">
           <h4>About us:</h4>
           <p>{job.jobDetailsFromCompany}</p>
-          {!expanded && <div className="gradient"></div>}
-          <button onClick={handleExpandClick} className="view-job">
-            {!expanded ? "View Job" : "Hide job"}
+          {!isModalOpen && <div className="gradient"></div>}
+          <button onClick={toggleModal} className="view-job">
+            {!isModalOpen ? "View Job" : "Hide job"}
           </button>
         </div>
         <div className="info-container">
@@ -78,6 +77,7 @@ export default function JobCard({ job }) {
           </button>
         </div>
       </div>
+      <JobModal job={job} isOpen={isModalOpen} onClose={toggleModal} />
     </div>
   );
 }

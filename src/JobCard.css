@@ -1,0 +1,176 @@
+.card {
+  max-width: 345px;
+  margin: 8px;
+  /* height: 640px; */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-content {
+  padding: 16px;
+  position: relative;
+}
+
+.badge {
+  font-size: 12px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 100px;
+  width: max-content;
+  margin-bottom: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ddd;
+}
+.info-container {
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+.job-info span {
+  display: block;
+  padding-left: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #9d9d9d;
+}
+.job-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
+}
+.job-location {
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+}
+.experience {
+  background-color: #1976d2;
+  color: white;
+  border-radius: 16px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+}
+
+.salary {
+  font-size: 16px;
+  font-weight: 500;
+  color: #093465;
+}
+
+.about-company {
+  position: relative;
+  padding-bottom: 20px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, white 70%);
+  cursor: pointer;
+}
+
+.view-job {
+  font-weight: 500;
+  position: absolute;
+  bottom: 0px;
+  text-align: center;
+  width: 100%;
+  left: auto;
+  right: auto;
+}
+
+.view-job,
+.easy-apply {
+  background-color: none;
+  color: blue;
+  border: none;
+  background: none;
+}
+
+.easy-apply {
+  text-transform: capitalize;
+  color: black;
+  background-color: #55efc4;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  margin: 4px;
+}
+.ask-referral {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  color: white;
+  background-color: #453ac6;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  margin: 4px;
+}
+.referral-avatar-section {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.referral-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  border: 1px solid white;
+  position: "relative";
+  filter: blur(1.5px);
+}
+.referral-avatar img {
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+}
+.green-ping-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 100px;
+  background: green;
+}
+p,
+h3,
+h4 {
+  margin: 0;
+}
+.card-content h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+.card-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+}

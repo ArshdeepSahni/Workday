@@ -88,6 +88,7 @@ const JobListings = () => {
           ...job,
           minExp: job.minExp ? parseInt(job.minExp, 10) : 2,
         }));
+        console.log(newData, "ndndnd");
         setAllJobs((prev) => [...prev, ...newData]);
         setJobs((prev) => [...prev, ...newData]);
         setHasMore(data.jdList.length === 100);
